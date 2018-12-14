@@ -8,7 +8,7 @@ public class Node{
   }
   public Node(int datatwo){
     data = datatwo;
-		
+
   }
   public Node next(){
     return next;
@@ -31,12 +31,5 @@ public class Node{
   public String toString(){
   	return data + "";
   }
-	private Node getNthNode(int var){
-		Node current = start;
-		while current != null{
-			current = current.next()
-		}
-		return current;
-	}
-	
+
 }
