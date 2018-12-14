@@ -26,7 +26,7 @@ public class MyLinkedList{
 		return length;
   }
   public String toString(){
-
+		
   }
   public Integer get(int index){
 
