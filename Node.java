@@ -6,8 +6,9 @@ public class Node{
     this.next = next;
     this.prev = prev;
   }
-  public Node(int data){
-    this.data = data;
+  public Node(int datatwo){
+    data = datatwo;
+		
   }
   public Node next(){
     return next;
@@ -15,17 +16,17 @@ public class Node{
   public Node prev(){
     return prev;
   }
-  public void setNext(Node next){
-    this.next = next;
+  public void setNext(Node nexttwo){
+    next = nexttwo;
   }
-  public void setPrev(Node prev){
-    this.prev = prev;
+  public void setPrev(Node prevtwo){
+    prev = prevtwo;
   }
   public Integer getData(){
     return data;
   }
-  public void setData(Integer data){
-    this.data = data;
+  public void setData(Integer datatwo){
+    data = datatwo;
   }
   public String toString(){
   	return data + "";
