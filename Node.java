@@ -31,5 +31,12 @@ public class Node{
   public String toString(){
   	return data + "";
   }
+	private Node getNthNode(int var){
+		Node current = start;
+		while current != null{
+			current = current.next()
+		}
+		return current;
+	}
 	
 }
