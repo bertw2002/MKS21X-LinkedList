@@ -33,6 +33,18 @@ public class MyLinkedList{
 		return length;
   }
   public String toString(){
+		String val= "[";
+		Node current = start;
+		while (current != null){
+			current = current.next();
+			if (val.length() != 1){
+				val += " ,";
+				val += current.getData();
+			}else{
+				val += current.getData();
+			}
+		}
+		return val += "]";
 
   }
   public Integer get(int index){
@@ -74,7 +86,7 @@ public class MyLinkedList{
 
   }
   public Integer remove(int index) {
-
+		
   }
   public Integer remove(Integer value){
 
