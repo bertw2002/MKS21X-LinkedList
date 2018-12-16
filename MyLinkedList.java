@@ -71,13 +71,16 @@ public class MyLinkedList{
 		}
   }
   public boolean contains(Integer value){
-		for (int x = 0; x < length; x++){
-			if (value.equals(getNthNode(x).getData())){
-				return true;
-			}
-		}
-		return false;
+		Node current = start;
+		while (current != null) {
+      if (current.getData().equals(value)) {
+        return true;
+      }
+      current = current.next();
+    }
+    return false;
   }
+
   public int indexOf(Integer value){
 		for (int x = 0; x < length; x++){
 			if (value.equals(getNthNode(x).getData())){
