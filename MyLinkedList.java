@@ -95,14 +95,43 @@ public class MyLinkedList{
 			throw new IndexOutOfBoundsException();
 		}
 		//size = index, just add to the end.
-		else if(index == size()) add(value);
+		else if(index == size()){
+			add(value);
+			length++;
+		}
 		//
-		else if(index != 0){
-			Node newnode = new Node(value, getNthNode(index - 1), getNthNode(index + 1));
-			Node
+		else if (index != 0){
+			// index -1 or just index? just test it out
+			Node newnode = new Node(value, getNthNode(index - 1), getNthNode(index ));
+			getNthNode(index).setNext(newnode);
+			getNthNode(index + 1).setPrev(newnode);
+			length++;
+			//if index == 0;
+		}else{
+			// null cuz nothing before, first element
+			Node newnode = new Node(value, null, getNthNode(index));
+			getNthNode(index).setNext(newnode);
+			getNthNode(index + 1).setPrev(newnode);
+			length++;
 		}
   }
   public Integer remove(int index) {
+		if (index < 0 && index >= length){
+			throw new IndexOutOfBoundsException();
+		}
+		else if (index == size() - 1){
+			Integer oldvar = getNthNode(length - 1).getData();
+			getNthNode(length - 1).setNext(null);
+			end = getNthNode(size() - 1);
+			length--;
+			return oldvar;
+		}else{
+			Integer oldvar = getNthNode(length - 1).getData();
+			getNthNode(index + 1).setPrev(getNthNode(index - 1));
+			getNthNode(index - 1).setNext(getNthNode(index + 1));
+			length --;
+			return oldvar;
+		}
 
   }
   public boolean remove(Integer value){
