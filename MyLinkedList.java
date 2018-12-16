@@ -11,31 +11,30 @@ public class MyLinkedList{
 	private Node getNthNode(int idx){
 		Node current = start;
 		//exception if out of bounds.
-		if (idx > size()) throw new IndexOutOfBoundsException();
+		if (idx >= length || idx < 0) throw new IndexOutOfBoundsException();
+
 		//loop thru until index
-		int x = 0;
-		while (current != null && x < idx){
+		for (int x = 0; x < idx;x++){
 			current = current.next();
-			x++;
 		}
 		return current;
 	}
-  public boolean add(Integer value){
-		// start & end same cuz 0 length
-  	if (length == 0){
-  		Node newnode = new Node(value);
-  		end.setNext(newnode);
-  		start = newnode;
-  		end = newnode;
-			// add to end if not length 0
-  	}else{
-			Node newnode = new Node(value);
-			end.setNext(newnode);
-			end = newnode;
-		}
-		length ++;
-		return true;
+	public boolean add(Integer value) {
+		//null start
+    Node newnode = new Node(value, null, end);
+		//when length == 0 or end is null
+    if (end != null) {
+      end.setNext(newnode);
+    }
+    else {
+			start = newnode;
+    }
+		//adds 1 to length no matter what
+    length++;
+    end = newnode;
+    return true;
   }
+
   public int size(){
 		return length;
   }
@@ -43,29 +42,26 @@ public class MyLinkedList{
   public String toString(){
 		String val= "[";
 		Node current = start;
-		while (current != null){
-			current = current.next();
-			if (val.length() != 1){
-				val += " ,";
-				val += current.getData();
+		for (int x = 0;x < size();x++){
+			if (x != length - 1){
+				val += current.getData() + ", ";
+				current = current.next();
+
 			}else{
 				val += current.getData();
+				//doesnt do current.next() cuz last element
 			}
 		}
 		return val += "]";
 
   }
   public Integer get(int index){
-		if (length >= 0 && length < index){
-			return getNthNode(index).getData();
-		}else{
-			throw new IndexOutOfBoundsException();
-		}
+		return getNthNode(index).getData();
   }
 
   public Integer set(int index,Integer value){
 
-		if (length >= 0 && length < index){
+		if (length >= 0 && index < length){
 			//return original value, change to new.
 			Integer original = getNthNode(index).getData();
 			getNthNode(index).setData(value);
@@ -90,9 +86,13 @@ public class MyLinkedList{
 		}
 		return -1;
   }
-  public void add(int index,Integer value){
+	public void add(int index,Integer value){
 		if (index < 0 && index >= length){
 			throw new IndexOutOfBoundsException();
+		}
+		if (index == 0 && length == 0){
+			add(value);
+			length ++;
 		}
 		//size = index, just add to the end.
 		else if(index == size()){
@@ -100,21 +100,28 @@ public class MyLinkedList{
 			length++;
 		}
 		//
-		else if (index != 0){
+		else if(index != 0){
+			Node newnode = start;
 			// index -1 or just index? just test it out
-			Node newnode = new Node(value, getNthNode(index - 1), getNthNode(index ));
-			getNthNode(index).setNext(newnode);
-			getNthNode(index + 1).setPrev(newnode);
-			length++;
+			for (int x = 0; x < index - 1; x++) {
+        newnode = newnode.next();
+      }
+			Node nodenext = newnode.next();
+      Node newNode = new Node(value, node.next(), newnode);
+      newnode.setNext(newNode);
+      newnode = node.next().next();
+      newnode.setPrev(newNode);
+      length++;
+
 			//if index == 0;
 		}else{
 			// null cuz nothing before, first element
 			Node newnode = new Node(value, null, getNthNode(index));
-			getNthNode(index).setNext(newnode);
-			getNthNode(index + 1).setPrev(newnode);
+			getNthNode(index).setPrev(newnode);
+			start = newnode;
 			length++;
 		}
-  }
+	}
   public Integer remove(int index) {
 		if (index < 0 && index >= length){
 			throw new IndexOutOfBoundsException();
