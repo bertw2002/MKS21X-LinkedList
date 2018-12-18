@@ -166,4 +166,21 @@ public class MyLinkedList{
 		}
 		return false;
   }
+	public void extend(MyLinkedList other){
+		 //in O(1) runtime, move the elements from other onto the end of this
+		 //The size of other is reduced to 0
+		 //The size of this is now the combined sizes of both original lists
+		 if (other.size() == 0){
+			 other.end = end;
+			 end = other.end;
+		 }else if (size() == 0){
+			 start = other.start;
+			 end = other.end;
+		 }else{
+			 end.setNext(other.end);
+			 other.start.setPrev(end);
+			 end = other.end;
+		 }
+		 length += other.size();
+ }
 }
