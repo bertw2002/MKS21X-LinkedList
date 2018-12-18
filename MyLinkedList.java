@@ -63,8 +63,9 @@ public class MyLinkedList{
 
 		if (length >= 0 && index < length){
 			//return original value, change to new.
-			Integer original = getNthNode(index).getData();
-			getNthNode(index).setData(value);
+			Node nthnode = getNthNode(index);
+			Integer original = nthnode.getData();
+			nthnode.setData(value);
 			return original;
 		}else{
 			throw new IndexOutOfBoundsException();
@@ -121,8 +122,9 @@ public class MyLinkedList{
 			//if index == 0;
 		}else{
 			// null cuz nothing before, first element
-			Node newnode = new Node(value, null, getNthNode(index));
-			getNthNode(index).setPrev(newnode);
+			Node nthnode = getNthNode(index);
+			Node newnode = new Node(value, null, nthnode);
+			nthnode.setPrev(newnode);
 			start = newnode;
 			length++;
 		}
@@ -131,24 +133,25 @@ public class MyLinkedList{
 		if (index < 0 && index >= length){
 			throw new IndexOutOfBoundsException();
 		}
-
+		Node lengthnode = getNthNode(length - 2);
+		Node indexnode = getNthNode(index);
 		if (index == 0){
-			Integer oldvar = getNthNode(length - 2).getData();
+			Integer oldvar = lengthnode.getData();
 			getNthNode(0).setPrev(null);
 			start = getNthNode(1);
 			length --;
 			return oldvar;
 		}else if(index == length - 1){
-			Integer oldvar = getNthNode(length - 2).getData();
-			getNthNode(index-1).setNext(null);
-			end = getNthNode(index-1);
+			Integer oldvar = lengthnode.getData();
+			indexnode.prev().setNext(null);
+			end = indexnode.prev();
 			length--;
 			return oldvar;
 
 		}else{
-			Integer oldvar = getNthNode(length - 2).getData();
-			getNthNode(index + 1).setPrev(getNthNode(index - 1));
-			getNthNode(index - 1).setNext(getNthNode(index + 1));
+			Integer oldvar = lengthnode.getData();
+			indexnode.next().setPrev(indexnode.prev());
+			indexnode.prev().setNext(indexnode.next());
 			length --;
 			return oldvar;
 		}
